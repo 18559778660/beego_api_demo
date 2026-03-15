@@ -19,4 +19,6 @@ func init() {
 	beego.Router("/api/users", &controllers.UserController{}, "post:Post;get:GetAll")
 	beego.Router("/api/users/:id", &controllers.UserController{}, "get:Get;put:Put;delete:Delete")
 	beego.Router("/api/us", &controllers.Uc{}, "post:Post")
+
+	beego.Router("/create/player", &controllers.PlayerController{}, "post:CreatePlayer")
 }

@@ -18,4 +18,5 @@ func init() {
 	// DELETE   /api/users/:id 删除用户
 	beego.Router("/api/users", &controllers.UserController{}, "post:Post;get:GetAll")
 	beego.Router("/api/users/:id", &controllers.UserController{}, "get:Get;put:Put;delete:Delete")
+	beego.Router("/api/us", &controllers.Uc{}, "post:Post")
 }

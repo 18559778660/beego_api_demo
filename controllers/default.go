@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
 	"strconv"
 
 	beego "github.com/beego/beego/v2/server/web"
@@ -59,7 +61,20 @@ var nextID = 1
 func (c *UserController) Post() {
 	var user User
 	// 解析请求体中的 JSON 数据
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &user)
+	// 注意：使用 io.ReadAll 直接从 Request.Body 读取，兼容性更好
+	bodyBytes, err := io.ReadAll(c.Ctx.Request.Body)
+	if err != nil {
+		fmt.Println("读取 Body 失败:", err)
+		c.Data["json"] = Response{
+			Code:    400,
+			Message: "请求参数错误",
+			Data:    nil,
+		}
+		c.ServeJSON()
+		return
+	}
+
+	err = json.Unmarshal(bodyBytes, &user)
 	if err != nil {
 		c.Data["json"] = Response{
 			Code:    400,

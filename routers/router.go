@@ -21,4 +21,5 @@ func init() {
 	beego.Router("/api/us", &controllers.Uc{}, "post:Post")
 
 	beego.Router("/create/player", &controllers.PlayerController{}, "post:CreatePlayer")
+	beego.Router("/edit/player", &controllers.PlayerController{}, "put:EditPlayer")
 }
